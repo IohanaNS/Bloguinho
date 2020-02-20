@@ -8,26 +8,12 @@ namespace Blog.Models.Blog.Postagem
 {
     public class PostagemEntity
     {
-        private string titulo;
-        private AutorEntity autor;
 
-        public string Titulo { get => titulo; set => titulo = value; }
-        public AutorEntity Autor { get => autor; set => autor = value; }
+        public String Titulo { get; set; }
+        public AutorEntity Autor { get; set; }
+        public List<EtiquetaEntity> Etiquetas;
+        public List<RevisaoEntity> Revisoes;
 
-        public virtual string editar()
-        {
-            return "edição realizada";
-        }
-
-        public class PostagemSobreFilmeEntity : PostagemEntity
-        {
-            public string Genero { get; set; }
-
-            public override string editar()
-            {
-                return "edição realizada na postagem sobre filmes";
-            }
-        }
 
     }
 }

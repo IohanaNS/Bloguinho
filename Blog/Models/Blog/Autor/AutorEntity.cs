@@ -10,5 +10,6 @@ namespace Blog.Models.Blog.Autor
         private string nome;
 
         public string Nome { get => nome; set => nome = value; }
+
     }
 }
