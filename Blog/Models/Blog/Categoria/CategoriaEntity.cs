@@ -4,18 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blog.Models.Blog.Autor
+namespace Blog.Models.Blog.Categoria
 {
-    public class AutorEntity { 
-
-
+    public class CategoriaEntity
+    {
         [Key]
         public int Id { get; set; }
 
+        [MaxLength(100)]
         [Required]
-        [MaxLength(120)]
-
-        public string Nome { get => Nome; set =>Nome = value; }
-
+        public string Nome { get; set; }
     }
 }
