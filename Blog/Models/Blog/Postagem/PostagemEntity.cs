@@ -1,6 +1,9 @@
 ﻿using Blog.Models.Blog.Autor;
+using Blog.Models.Blog.Categoria;
 using Blog.Models.Blog.Etiqueta;
 using Blog.Models.Blog.Postagem.Revisao;
+using Blog.Models.Blog.Postagem.Revisao.Classificacao;
+using Blog.Models.Blog.Postagem.Revisao.Comentario;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,10 +16,33 @@ namespace Blog.Models.Blog.Postagem
     {
         [Key]
         public int Id { get; set; }
+        [MaxLength(128)]
+        [Required]
         public String Titulo { get; set; }
+        [MaxLength(640)]
+        [Required]
+        public string Descricao { get; set; }
+
         public AutorEntity Autor { get; set; }
-        public List<EtiquetaEntity> Etiquetas;
-        public List<RevisaoEntity> Revisoes;
+
+        public CategoriaEntity Categoria { get; set; }
+
+        public List<PostagemEtiquetaEntity> PostagensEtiquetas { get; set; }
+
+        public ICollection<RevisaoEntity> Revisoes { get; set; }
+
+        public ICollection<ComentarioEntity> Comentarios { get; set; }
+
+        public ICollection<ClassificacaoEntity> Classificacoes { get; set; }
+
+
+        public PostagemEntity()
+        {
+            PostagensEtiquetas = new List<PostagemEtiquetaEntity>();
+            Revisoes = new List<RevisaoEntity>();
+            Comentarios = new List<ComentarioEntity>();
+            Classificacoes = new List<ClassificacaoEntity>();
+        }
 
 
     }

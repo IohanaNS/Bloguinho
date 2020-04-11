@@ -5,23 +5,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blog.Models.Blog.Postagem.Revisao
+namespace Blog.Models.Blog.Postagem.Revisao.Classificacao
 {
-    public class RevisaoEntity
-    {
+    public class ClassificacaoEntity
+    {   
         [Key]
         public int Id { get; set; }
         public PostagemEntity Postagem { get; set; }
+        [Required]
+        public bool Classificacao { get; set; }
 
-        [MaxLength(128)]
-        [Required]
-        public String Texto { get; set; }
-        [Required]
-        public int Versao { get; set; }
-        [Required]
-        public DateTime Data { get; set; }
-
-        
 
     }
 }

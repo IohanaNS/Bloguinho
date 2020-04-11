@@ -1,4 +1,6 @@
 ﻿using Blog.Models.Blog.Autor;
+using Blog.Models.Blog.Categoria;
+using Blog.Models.Blog.Postagem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +13,18 @@ namespace Blog.Models.Blog.Etiqueta
     {
         [Key]
         public int Id { get; set; }
+
+        [MaxLength(128)]
+        [Required]
         public String Nome { get; set; }
-        public String Cor { get; set; }
+        [Required]
+        public CategoriaEntity Categoria { get; set; }
+
+        public List<PostagemEtiquetaEntity> PostagensEtiquetas { get; set; }
+
+        public EtiquetaEntity()
+        {
+            PostagensEtiquetas = new List<PostagemEtiquetaEntity>();
+        }
     }
 }
