@@ -15,6 +15,7 @@ namespace Blog.Models.Blog.Postagem
 
         public List<PostagemEntity> ObterPostagens()
         {
+            //TODO arrumar as chaves estrangeiras do banco
             return _databaseContext.Postagens
                 .Include(p => p.Categoria)
                 .Include(p => p.Revisoes)
