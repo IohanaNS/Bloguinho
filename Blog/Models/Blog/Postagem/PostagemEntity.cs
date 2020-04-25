@@ -42,6 +42,7 @@ namespace Blog.Models.Blog.Postagem
             Revisoes = new List<RevisaoEntity>();
             Comentarios = new List<ComentarioEntity>();
             Classificacoes = new List<ClassificacaoEntity>();
+ 
         }
 
 
