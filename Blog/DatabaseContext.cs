@@ -5,15 +5,13 @@ using Blog.Models.Blog.Postagem;
 using Blog.Models.Blog.Postagem.Revisao;
 using Blog.Models.Blog.Postagem.Revisao.Classificacao;
 using Blog.Models.Blog.Postagem.Revisao.Comentario;
+using Blog.Models.ControleDeAcesso;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Blog
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<Usuario, Papel, int>
     {
         public DbSet<CategoriaEntity> Categorias { get; set; }
 
@@ -34,7 +32,7 @@ namespace Blog
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseMySql("Server=localhost; User=root; password=Pow4r*++; Database=bloguinho");
+            optionsBuilder.UseMySql("Server=localhost; User=root; password=Pow4r*++; Database=blog");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

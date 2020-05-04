@@ -19,7 +19,7 @@ namespace Blog.Models.Blog.Postagem.Revisao
         [Required]
         public int Versao { get; set; }
         [Required]
-        public DateTime Data { get; set; }
+        public DateTime DataCriacao { get; set; }
 
         
 

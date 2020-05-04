@@ -1,5 +1,7 @@
+using Blog.Models.Blog.Autor;
 using Blog.Models.Blog.Categoria;
 using Blog.Models.Blog.Postagem;
+using Blog.Models.ControleDeAcesso;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,17 +22,20 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            using(var dbcontext = new DatabaseContext())
+            using (var databaseContext = new DatabaseContext())
             {
-                dbcontext.Database.EnsureCreated();
+                databaseContext.Database.EnsureCreated();
             }
-            
+
+            // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
 
-           
+            // Adicionar os serviços de ORM das entidades do domínio
             services.AddTransient<CategoriaOrmService>();
             services.AddTransient<PostagemOrmService>();
+            services.AddTransient<AutorOrmService>();
 
+            // Adicionar os serviços que possibilitam o funcionamento dos controllers e das views
             services.AddControllersWithViews();
         }
 
@@ -47,6 +52,7 @@ namespace Blog
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -54,12 +60,40 @@ namespace Blog
 
             app.UseAuthorization();
 
+
+            // Configuração de Rotas
             app.UseEndpoints(endpoints =>
             {
+                /*
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
+                */
+
+                // Rotas da Área Comum
+                endpoints.MapControllerRoute(
+                    name: "comum",
+                    pattern: "/",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                // Rotas da Área Administrativa
+                endpoints.MapControllerRoute(
+                    name: "admin.categorias",
+                    pattern: "admin/categorias/{action}/{id?}",
+                    defaults: new { controller = "AdminCategorias", action = "Listar" }
+                );
+
+                /*
+                endpoints.MapControllerRoute(
+                    name: "admin.autores",
+                    pattern: "admin/autores/{action}/{id?}",
+                    defaults: new { controller = "AdminAutores", action = "Listar"}
+                );
+                */
             });
         }
     }
 }
+    

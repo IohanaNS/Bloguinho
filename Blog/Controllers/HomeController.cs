@@ -40,7 +40,6 @@ namespace Blog.Controllers
 
             // Alimentar a lista de postagens que serão exibidas na view
             List<PostagemEntity> listaPostagens = _postagemOrmService.ObterPostagens();
-
             foreach (PostagemEntity postagem in listaPostagens)
             {
                 PostagemHomeIndex postagemHomeIndex = new PostagemHomeIndex();
@@ -51,10 +50,10 @@ namespace Blog.Controllers
                 postagemHomeIndex.PostagemId = postagem.Id.ToString();
 
                 // Obter última revisão
-                RevisaoEntity ultimaRevisao = postagem.Revisoes.OrderByDescending(o => o.Data).FirstOrDefault();
+                RevisaoEntity ultimaRevisao = postagem.Revisoes.OrderByDescending(o => o.DataCriacao).FirstOrDefault();
                 if (ultimaRevisao != null)
                 {
-                    postagemHomeIndex.Data = ultimaRevisao.Data.ToLongDateString();
+                    postagemHomeIndex.Data = ultimaRevisao.DataCriacao.ToLongDateString();
                 }
 
                 model.Postagens.Add(postagemHomeIndex);
@@ -62,7 +61,6 @@ namespace Blog.Controllers
 
             // Alimentar a lista de categorias que serão exibidas na view
             List<CategoriaEntity> listaCategorias = _categoriaOrmService.ObterCategorias();
-
             foreach (CategoriaEntity categoria in listaCategorias)
             {
                 CategoriaHomeIndex categoriaHomeIndex = new CategoriaHomeIndex();
@@ -76,7 +74,7 @@ namespace Blog.Controllers
                 {
                     EtiquetaHomeIndex etiquetaHomeIndex = new EtiquetaHomeIndex();
                     etiquetaHomeIndex.Nome = etiqueta.Nome;
-                    etiquetaHomeIndex.EtiquetaId = etiqueta.Id;
+                    etiquetaHomeIndex.EtiquetaId = etiqueta.Id.ToString();
 
                     model.Etiquetas.Add(etiquetaHomeIndex);
                 }
@@ -84,19 +82,16 @@ namespace Blog.Controllers
 
 
             // Alimentar a lista de postagens populares que serão exibidas na view
-
-
-            List<PostagemEntity> listaPostagensPopulares = _postagemOrmService.ObterPostagensPopulares();
-            foreach (PostagemEntity postagemPopular in listaPostagensPopulares)
+            List<PostagemEntity> postagensPopulares = _postagemOrmService.ObterPostagensPopulares();
+            foreach (PostagemEntity postagemPopular in postagensPopulares)
             {
-                PostagemPopularHomeIndex postagemPopularHomeIndex = new PostagemPopularHomeIndex();
-                postagemPopularHomeIndex.Titulo = postagemPopular.Titulo;
-                postagemPopularHomeIndex.PostagemId = postagemPopular.Id;
-                postagemPopularHomeIndex.Categoria = postagemPopular.Categoria.Nome;
-
-                model.PostagensPopulares.Add(postagemPopularHomeIndex);
+                model.PostagensPopulares.Add(new PostagemPopularHomeIndex()
+                {
+                    Categoria = postagemPopular.Categoria.Nome,
+                    PostagemId = postagemPopular.Id.ToString(),
+                    Titulo = postagemPopular.Titulo
+                });
             }
-
 
             return View(model);
         }
