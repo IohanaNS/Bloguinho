@@ -23,46 +23,46 @@ namespace Blog.Models.Blog.Postagem.Revisao
             /*** OBTER UM ÚNICO OBJETO                                                                                */
             /**********************************************************************************************************/
 
-            var primeiraRevisaoOuNulo = _databaseContext.Revisoes.FirstOrDefault();
+            //var primeiraRevisaoOuNulo = _databaseContext.Revisoes.FirstOrDefault();
 
-            var algumaRevisaoOuNulo = _databaseContext.Revisoes.SingleOrDefault(c => c.Id == 3);
+            //var algumaRevisaoOuNulo = _databaseContext.Revisoes.SingleOrDefault(c => c.Id == 3);
 
-            var encontrarRevisao = _databaseContext.Revisoes.Find(3);
-
-
-            /**********************************************************************************************************/
-            /*** OBTER MÚLTIPLOS OBJETOS                                                                              */
-            /**********************************************************************************************************/
-
-            // ToList
-            var todasRevisoes = _databaseContext.Revisoes.ToList();
+            //var encontrarRevisao = _databaseContext.Revisoes.Find(3);
 
 
-            /***********/
-            /* FILTROS */
-            /***********/
+            ///**********************************************************************************************************/
+            ///*** OBTER MÚLTIPLOS OBJETOS                                                                              */
+            ///**********************************************************************************************************/
 
-            var revisoesComALetraG = _databaseContext.Revisoes.Where(c => c.Texto.StartsWith("G")).ToList();
-            var revisoesComALetraMouL = _databaseContext.Revisoes
-                .Where(c => c.Texto.StartsWith("M") || c.Texto.StartsWith("L"))
-                .ToList();
+            //// ToList
+            //var todasRevisoes = _databaseContext.Revisoes.ToList();
 
 
+            ///***********/
+            ///* FILTROS */
+            ///***********/
 
-            /*************/
-            /* ORDENAÇÃO */
-            /*************/
-
-            var revisoesEmOrdemAlfabetica = _databaseContext.Revisoes.OrderBy(c => c.Texto).ToList();
-            var revisoesEmOrdemAlfabeticaInversa = _databaseContext.Revisoes.OrderByDescending(c => c.Texto).ToList();
+            //var revisoesComALetraG = _databaseContext.Revisoes.Where(c => c.Texto.StartsWith("G")).ToList();
+            //var revisoesComALetraMouL = _databaseContext.Revisoes
+            //    .Where(c => c.Texto.StartsWith("M") || c.Texto.StartsWith("L"))
+            //    .ToList();
 
 
-            /**************************/
-            /* ENTIDADES RELACIONADAS */
-            /**************************/
 
-            var revisoesESuaPostagem = _databaseContext.Revisoes
-                .Include(c => c.Postagem);
+            ///*************/
+            ///* ORDENAÇÃO */
+            ///*************/
+
+            //var revisoesEmOrdemAlfabetica = _databaseContext.Revisoes.OrderBy(c => c.Texto).ToList();
+            //var revisoesEmOrdemAlfabeticaInversa = _databaseContext.Revisoes.OrderByDescending(c => c.Texto).ToList();
+
+
+            ///**************************/
+            ///* ENTIDADES RELACIONADAS */
+            ///**************************/
+
+            //var revisoesESuaPostagem = _databaseContext.Revisoes
+            //    .Include(c => c.Postagem);
 
             // FIM DOS EXEMPLOS
 
@@ -86,5 +86,6 @@ namespace Blog.Models.Blog.Postagem.Revisao
             return _databaseContext.Revisoes.Where(c => c.Texto.Contains(revisao)).ToList();
 
         }
+
     }
 }

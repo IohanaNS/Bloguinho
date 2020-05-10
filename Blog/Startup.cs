@@ -22,10 +22,14 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            using (var databaseContext = new DatabaseContext())
+            // Adicionar o serviço do mecanismo de controle de acesso
+            services.AddIdentity<Usuario, Papel>(options =>
             {
-                databaseContext.Database.EnsureCreated();
-            }
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = 6;
+                            
+            }).AddEntityFrameworkStores<DatabaseContext>();
+
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Blog.Models.Blog.Autor;
 using Blog.Models.Blog.Categoria;
+using Blog.Models.Blog.Postagem.Revisao;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Models.Blog.Postagem
@@ -25,6 +26,7 @@ namespace Blog.Models.Blog.Postagem
                 .ToList();
         }
 
+
         public List<PostagemEntity> ObterPostagensPopulares()
         {
             return _databaseContext.Postagens
@@ -32,6 +34,19 @@ namespace Blog.Models.Blog.Postagem
                 .OrderByDescending(c => c.Comentarios.Count)
                 .Take(4)
                 .ToList();
+        }
+        public int UltimaVersaoRevisao(int postagemId)
+        {
+            var revisao = _databaseContext.Postagens
+              .Include(r => r.Revisoes)
+              .Where(p => p.Id == postagemId)
+              .Select(p => p.Revisoes.OrderByDescending(r => r.Versao).Last())
+              .FirstOrDefault();
+
+            if (revisao == null)
+                return 0;
+
+            return revisao.Versao;
         }
         public PostagemEntity CriarPostagem(string descricao,CategoriaEntity categoria,string titulo,AutorEntity autor)
         {
@@ -54,7 +69,23 @@ namespace Blog.Models.Blog.Postagem
             postagem.Descricao = descricao;
             _databaseContext.SaveChanges();
 
+
+
+
+            var revisao = new RevisaoEntity
+            {
+                Texto = descricao,
+                DataCriacao = DateTime.Now,
+                Versao = this.UltimaVersaoRevisao(id) + 1,
+            };
+
+            postagem.Revisoes.Add(revisao);
+            _databaseContext.SaveChanges();
+
             return postagem;
+
+
+
         }
 
         public bool RemoverPostagem(int id)

@@ -74,6 +74,7 @@ namespace Blog.Controllers
                 {
                     EtiquetaHomeIndex etiquetaHomeIndex = new EtiquetaHomeIndex();
                     etiquetaHomeIndex.Nome = etiqueta.Nome;
+
                     etiquetaHomeIndex.EtiquetaId = etiqueta.Id.ToString();
 
                     model.Etiquetas.Add(etiquetaHomeIndex);
