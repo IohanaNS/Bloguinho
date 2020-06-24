@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Blog.ViewModels;
+using System.Collections.Generic;
 
 namespace Blog.ViewModels.Home
 {
-    public class HomeIndexViewModel
+    public class HomeIndexViewModel : ViewModelAreaComum
     {
         public string TituloPagina { get; set; }
 
@@ -17,6 +18,7 @@ namespace Blog.ViewModels.Home
 
         public HomeIndexViewModel()
         {
+            TituloPagina = "Bloguinho";
             Postagens = new List<PostagemHomeIndex>();
             Categorias = new List<CategoriaHomeIndex>();
             Etiquetas = new List<EtiquetaHomeIndex>();

@@ -28,8 +28,15 @@ namespace Blog
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
                             
-            }).AddEntityFrameworkStores<DatabaseContext>();
+            }).AddEntityFrameworkStores<DatabaseContext>().AddErrorDescriber<DescritorDeErros>(); ;
 
+            // Configurar o mecanismo de controle de acesso
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/acesso/login";
+            });
+            //Add serviço do controle de acesso
+            services.AddTransient<ControleDeAcessoService>();
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
@@ -68,12 +75,6 @@ namespace Blog
             // Configuração de Rotas
             app.UseEndpoints(endpoints =>
             {
-                /*
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
-                );
-                */
 
                 // Rotas da Área Comum
                 endpoints.MapControllerRoute(
@@ -82,20 +83,34 @@ namespace Blog
                     defaults: new { controller = "Home", action = "Index" }
                 );
 
+                // Rotas do Controle de Acesso
+                endpoints.MapControllerRoute(
+                    name: "controleDeAcesso",
+                    pattern: "acesso/{action}",
+                    defaults: new { controller = "ControleDeAcesso", action = "Login" }
+                );
+
                 // Rotas da Área Administrativa
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "admin",
+                    defaults: new { controller = "Admin", action = "Painel" }
+                );
                 endpoints.MapControllerRoute(
                     name: "admin.categorias",
                     pattern: "admin/categorias/{action}/{id?}",
                     defaults: new { controller = "AdminCategorias", action = "Listar" }
                 );
-
-                /*
                 endpoints.MapControllerRoute(
-                    name: "admin.autores",
-                    pattern: "admin/autores/{action}/{id?}",
-                    defaults: new { controller = "AdminAutores", action = "Listar"}
+                    name: "admin.etiquetas",
+                    pattern: "admin/etiquetas/{action}/{id?}",
+                    defaults: new { controller = "AdminEtiquetas", action = "Listar" }
                 );
-                */
+                endpoints.MapControllerRoute(
+                    name: "admin.postagens",
+                    pattern: "admin/postagens/{action}/{id?}",
+                    defaults: new { controller = "AdminPostagens", action = "Listar" }
+                );
             });
         }
     }
