@@ -36,7 +36,6 @@ namespace Blog.Controllers
         {
             // Instanciar a ViewModel
             HomeIndexViewModel model = new HomeIndexViewModel();
-            
 
             // Alimentar a lista de postagens que serão exibidas na view
             List<PostagemEntity> listaPostagens = _postagemOrmService.ObterPostagens();
@@ -74,13 +73,11 @@ namespace Blog.Controllers
                 {
                     EtiquetaHomeIndex etiquetaHomeIndex = new EtiquetaHomeIndex();
                     etiquetaHomeIndex.Nome = etiqueta.Nome;
-
                     etiquetaHomeIndex.EtiquetaId = etiqueta.Id.ToString();
 
                     model.Etiquetas.Add(etiquetaHomeIndex);
                 }
             }
-
 
             // Alimentar a lista de postagens populares que serão exibidas na view
             List<PostagemEntity> postagensPopulares = _postagemOrmService.ObterPostagensPopulares();

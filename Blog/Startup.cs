@@ -1,6 +1,10 @@
 using Blog.Models.Blog.Autor;
 using Blog.Models.Blog.Categoria;
+using Blog.Models.Blog.Etiqueta;
 using Blog.Models.Blog.Postagem;
+using Blog.Models.Blog.Postagem.Classificacao;
+using Blog.Models.Blog.Postagem.Comentario;
+using Blog.Models.Blog.Postagem.Revisao;
 using Blog.Models.ControleDeAcesso;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,29 +26,35 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Adicionar o serviço do mecanismo de controle de acesso
+            // Adicionar o mecanismo de controle de acesso (Identity)
             services.AddIdentity<Usuario, Papel>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
-                            
-            }).AddEntityFrameworkStores<DatabaseContext>().AddErrorDescriber<DescritorDeErros>(); ;
+
+            }).AddEntityFrameworkStores<DatabaseContext>()
+                .AddErrorDescriber<DescritorDeErros>();
 
             // Configurar o mecanismo de controle de acesso
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/acesso/login";
             });
-            //Add serviço do controle de acesso
+
+            // Adicionar o serviço do controle de acesso
             services.AddTransient<ControleDeAcessoService>();
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
 
             // Adicionar os serviços de ORM das entidades do domínio
-            services.AddTransient<CategoriaOrmService>();
-            services.AddTransient<PostagemOrmService>();
             services.AddTransient<AutorOrmService>();
+            services.AddTransient<CategoriaOrmService>();
+            services.AddTransient<EtiquetaOrmService>();
+            services.AddTransient<PostagemOrmService>();
+            services.AddTransient<ClassificacaoOrmService>();
+            services.AddTransient<ComentarioOrmService>();
+            services.AddTransient<RevisaoOrmService>();
 
             // Adicionar os serviços que possibilitam o funcionamento dos controllers e das views
             services.AddControllersWithViews();
@@ -67,15 +77,15 @@ namespace Blog
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
 
             // Configuração de Rotas
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-
                 // Rotas da Área Comum
                 endpoints.MapControllerRoute(
                     name: "comum",

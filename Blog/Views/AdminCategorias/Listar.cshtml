@@ -1,1 +1,43 @@
-﻿
+﻿@using Blog.ViewModels.Admin
+@model Blog.ViewModels.Admin.AdminCategoriasListarViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Listagem de Categorias</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <a class="btn btn-primary mb-3" href="/admin/categorias/criar">Criar novo autor</a>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                 
+                  >
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CategoriaAdminCategorias categoria in @Model.Categorias)
+                {
+                    <tr>
+                        <td>@categoria.IdCategoria</td>
+                        <td>@categoria.NomeCategoria</td>
+
+                        <td>
+                            <a class="btn btn-default btn-xs" href="/admin/etiquetas/editar/@categoria.IdCategoria">Editar</a>
+                            <a class="btn btn-danger btn-xs" href="/admin/etiquetas/remover/@categoria.IdCategoria">Remover</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -57,7 +57,7 @@ namespace Blog.Models.Blog.Postagem
             return novaPostagem;
         }
 
-        public PostagemEntity EditarPostagem(int id, string descricao)
+        public PostagemEntity EditarPostagem(int id,string titulo,string descricao,int idCategoria,string texto,DateTime dataExibicao)
         {
             var postagem = _databaseContext.Postagens.Find(id);
 

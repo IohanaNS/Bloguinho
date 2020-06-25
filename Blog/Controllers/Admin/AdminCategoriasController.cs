@@ -13,13 +13,16 @@ using Blog.ViewModels.Home;
 using Blog.Models.Blog.Postagem.Revisao;
 using Blog.Models.Blog.Autor;
 using Blog.RequestModels.AdminCategorias;
+using Blog.ViewModels.Admin;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Controllers.Admin
 {
+
+    [Authorize]
     public class AdminCategoriasController : Controller
     {
         private readonly CategoriaOrmService _categoriaOrmService;
-
 
         public AdminCategoriasController(
             CategoriaOrmService categoriaOrmService
@@ -28,15 +31,16 @@ namespace Blog.Controllers.Admin
             _categoriaOrmService = categoriaOrmService;
         }
 
-
         [HttpGet]
         public IActionResult Listar()
         {
-            return View();
+            AdminCategoriasListarViewModel model = new AdminCategoriasListarViewModel();
+
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult Detalhar()
+        public IActionResult Detalhar(int id)
         {
             return View();
         }

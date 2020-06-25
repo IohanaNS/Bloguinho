@@ -18,7 +18,8 @@ namespace Blog.RequestModels.AdminEtiquetas
     public class AdminEtiquetasCriarRequestModel
     {
         public string Nome { get; set; }
-        public CategoriaEntity Categoria{ get; set; }
+        public CategoriaEntity Categoria { get; set; }
+        public int IdCategoria { get; set; }
     
 
     }

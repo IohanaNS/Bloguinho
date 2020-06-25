@@ -1,5 +1,7 @@
 ﻿using Blog.Models.Blog.Postagem;
 using Blog.RequestModels.AdminPostagens;
+using Blog.ViewModels.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,27 +10,28 @@ using System.Threading.Tasks;
 
 namespace Blog.Controllers.Admin
 {
+    [Authorize]
     public class AdminPostagensController : Controller
     {
-        private readonly PostagemOrmService _PostagemOrmService;
-
+        private readonly PostagemOrmService _postagemOrmService;
 
         public AdminPostagensController(
-            PostagemOrmService PostagemOrmService
+            PostagemOrmService postagemOrmService
         )
         {
-            _PostagemOrmService = PostagemOrmService;
+            _postagemOrmService = postagemOrmService;
         }
-
 
         [HttpGet]
         public IActionResult Listar()
         {
-            return View();
+            AdminPostagensListarViewModel model = new AdminPostagensListarViewModel();
+
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult Detalhar()
+        public IActionResult Detalhar(int id)
         {
             return View();
         }
@@ -44,15 +47,15 @@ namespace Blog.Controllers.Admin
         [HttpPost]
         public RedirectToActionResult Criar(AdminPostagensCriarRequestModel request)
         {
-            var descricao = request.Descricao;
-            var categoria = request.Categoria;
             var titulo = request.Titulo;
-            var autor = request.Autor;
-
+            var descricao = request.Descricao;
+            var idAutor = request.IdAutor;
+            var idCategoria = request.IdCategoria;
+            
 
             try
             {
-                _PostagemOrmService.CriarPostagem(descricao, categoria, titulo, autor);
+                _postagemOrmService.CriarPostagem(descricao, idCategoria, titulo, idAutor);
             }
             catch (Exception exception)
             {
@@ -76,11 +79,15 @@ namespace Blog.Controllers.Admin
         public RedirectToActionResult Editar(AdminPostagensEditarRequestModel request)
         {
             var id = request.Id;
+            var titulo = request.Titulo;
             var descricao = request.Descricao;
+            var idCategoria = Convert.ToInt32(request.IdCategoria);
+            var texto = request.Descricao;
+            DateTime dataExibicao = request.DataExibicao;
 
             try
             {
-                _PostagemOrmService.EditarPostagem(id, descricao);
+                _postagemOrmService.EditarPostagem(id, titulo, descricao, idCategoria, texto, dataExibicao);
             }
             catch (Exception exception)
             {
@@ -107,7 +114,7 @@ namespace Blog.Controllers.Admin
 
             try
             {
-                _PostagemOrmService.RemoverPostagem(id);
+                _postagemOrmService.RemoverPostagem(id);
             }
             catch (Exception exception)
             {

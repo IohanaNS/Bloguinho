@@ -21,11 +21,9 @@ namespace Blog.RequestModels.AdminPostagens
         public string Titulo { get; set; }
         public string Descricao { get; set; }
 
-        public AutorEntity Autor { get; set; }
+        public AutorEntity IdAutor { get; set; }
 
-        public CategoriaEntity Categoria { get; set; }
-
-
-
+        public CategoriaEntity IdCategoria { get; set; }
+        public DateTime DataExibicao { get; internal set; }
     }
 }

@@ -24,8 +24,8 @@ namespace Blog.Controllers
         {
             ControleDeAcessoLoginViewModel model = new ControleDeAcessoLoginViewModel();
 
-            model.MensagemRegistro = (string) TempData["registrar-msg"];
-            model.MensagemLogin = (string) TempData["login-msg"];
+            model.MensagemRegistro = (string)TempData["registrar-msg"];
+            model.MensagemLogin = (string)TempData["login-msg"];
             model.Destino = returnUrl;
 
             return View(model);
@@ -36,26 +36,31 @@ namespace Blog.Controllers
         {
             var usuario = request.Usuario;
             var senha = request.Senha;
-            var destinoAposSucessoNoLogin = request.Destino ?? "admin";
+            var destino = request.Destino ?? "admin";
 
-            var loginUrl = "acesso/login?ReturnUrl=" + request.Destino;
+            var redirectUrl = "acesso/login?ReturnUrl=" + request.Destino;
 
-            if (usuario == null) {
-                TempData["login-msg"] = "O login deve ser preenchido";
-                return Redirect(loginUrl);
+            if (usuario == null)
+            {
+                TempData["login-msg"] = "Por favor informe o nome de usuário";
+                return Redirect(redirectUrl);
             }
 
-            if (senha == null) {
-                TempData["login-msg"] = "A senha deve ser preenchida";
-                return Redirect(loginUrl);
+            if (senha == null)
+            {
+                TempData["login-msg"] = "Por favor informe a senha";
+                return Redirect(redirectUrl);
             }
 
-            try {
+            try
+            {
                 await _controleDeAcessoService.AutenticarUsuario(usuario, senha);
-                return Redirect(destinoAposSucessoNoLogin);
-            } catch (Exception exception) {
+                return Redirect(destino);
+            }
+            catch (Exception exception)
+            {
                 TempData["login-msg"] = exception.Message;
-                return Redirect(loginUrl);
+                return Redirect(redirectUrl);
             }
         }
 
@@ -72,8 +77,8 @@ namespace Blog.Controllers
         {
             ControleDeAcessoRegistrarViewModel model = new ControleDeAcessoRegistrarViewModel();
 
-            model.ErrosRegistro = (string[]) TempData["erros-registro"];
-            model.Erro = (string) TempData["erro-msg"];
+            model.ErrosRegistro = (string[])TempData["erros-registro"];
+            model.Erro = (string)TempData["erro-msg"];
 
             return View(model);
         }
@@ -86,36 +91,43 @@ namespace Blog.Controllers
             var senha = request.Senha;
             var token = request.Token ?? "";
 
-            if (apelido == null) {
+            if (apelido == null)
+            {
                 TempData["erro-msg"] = "Por favor informe um apelido";
                 return RedirectToAction("Registrar");
             }
 
-            if (email == null) {
+            if (email == null)
+            {
                 TempData["erro-msg"] = "Por favor informe um email";
                 return RedirectToAction("Registrar");
             }
 
-            if (senha == null) {
+            if (senha == null)
+            {
                 TempData["erro-msg"] = "Por favor informe uma senha";
                 return RedirectToAction("Registrar");
             }
 
-            if (!token.Equals("BLOG-PWA-2020")) {
+            if (!token.Equals("BLOG-PWA-2020"))
+            {
                 TempData["erro-msg"] = "Token Inválido!";
                 return RedirectToAction("Registrar");
             }
 
-            try {
+            try
+            {
                 await _controleDeAcessoService.RegistrarUsuario(email, apelido, senha);
 
                 TempData["registrar-msg"] = "Usuário Registrado!";
                 return RedirectToAction("Login");
-                
-            } catch (RegistrarUsuarioException exception) {
+            }
+            catch (RegistrarUsuarioException exception)
+            {
                 var listaDeErros = new List<string>();
 
-                foreach (var erro in exception.Erros) {
+                foreach (var erro in exception.Erros)
+                {
                     listaDeErros.Add(erro.Description);
                 }
 

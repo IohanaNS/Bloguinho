@@ -36,6 +36,7 @@ namespace Blog.Models.Blog.Postagem
         public ICollection<ClassificacaoEntity> Classificacoes { get; set; }
 
 
+
         public PostagemEntity()
         {
             PostagensEtiquetas = new List<PostagemEtiquetaEntity>();

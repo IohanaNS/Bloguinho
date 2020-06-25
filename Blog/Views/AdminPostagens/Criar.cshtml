@@ -1,1 +1,122 @@
-﻿Criar
+﻿@using Blog.ViewModels.Admin
+@model Blog.ViewModels.Admin.AdminPostagensCriarViewModel
+<!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+
+        @if (@Model.Erro != null)
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Erro!</h5>
+                @Model.Erro
+            </div>
+        }
+        <div class="card-header">
+            <h3 class="card-title">Criar postagem</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <!-- text input TITULO, DESCRICAO -->
+        <form  action="/admin/postagem/criar" method="post">
+        <div class="form-group">
+            <label>Titulo</label>
+            <input type="text" name="titulo" class="form-control" placeholder="Enter ...">
+        </div>
+        <!-- /.card-header   CAMPO SELECT (CATEGORIAS, ETIQUETAS, AUTORES) -->
+        <div class="form-group mb-3">
+            <label for="IdCategoria">Categoria</label>
+            <select id="IdCategoria" name="IdCategoria" class="form-control">
+                <option value="">Selecione</option>
+                @foreach (CategoriaAdminPostagens categoria in Model.Categorias)
+                {
+                    <option value="@categoria.IdCategoria">@categoria.NomeCategoria</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="IdEtiqueta">Etiqueta</label>
+            <select id="IdEtiqueta" name="IdEtiqueta" class="form-control">
+                <option value="">Selecione</option>
+                @foreach (EtiquetasAdminPostagens etiqueta in Model.Etiquetas)
+                {
+                    <option value="@etiqueta.IdEtiqueta">@etiqueta.NomeEtiqueta</option>
+                }
+            </select>
+        </div>
+        <div class="form-group mb-3">
+            <label for="IdAutor">Autor</label>
+            <select id="IdAutor" name="IdAutor" class="form-control">
+                <option value="">Selecione</option>
+                @foreach (AutoresAdminPostagens autor in Model.Autores)
+                {
+                    <option value="@autor.IdAutor">@autor.NomeAutor</option>
+                }
+            </select>
+        </div>
+
+        <!-- /.card -->
+        <!-- Date DATA -->
+        <div class="form-group">
+            <label>Data de inicio da exibição</label>
+            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.form group -->
+        <!-- Date range -->
+        <!-- SELECT2 EXAMPLE -->
+        <div class="content-wrapper">
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    Insira o texto no campo abaixo
+                                </h3>
+                                <!-- tools box -->
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                                            title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip"
+                                            title="Remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /. tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body pad">
+                                <div class="mb-3">
+                                    <textarea name="descricao" class="textarea" placeholder="Place some text here"
+                                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.col-->
+                    </div>
+                    <!-- ./row -->
+            </section>
+            <!-- /.content -->
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary btn-block">Criar</button>
+                <p class="text-center mt-3">
+                    <a href="/admin/postagens">Cancelar</a>
+                </p>
+            </div>
+</form>
+        </div>
+ 
+<!-- /.content-wrapper TEXTO DA POSTAGEM VEM ATÉ AQUI -->

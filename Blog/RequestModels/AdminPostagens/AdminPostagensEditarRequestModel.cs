@@ -24,6 +24,7 @@ namespace Blog.RequestModels.AdminPostagens
 
         public AutorEntity Autor { get; set; }
 
-        public CategoriaEntity Categoria { get; set; }
+        public CategoriaEntity IdCategoria { get; set; }
+        public DateTime DataExibicao { get; set; }
     }
 }
