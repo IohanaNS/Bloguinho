@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Blog.Models.Blog.Postagem.Revisao.Classificacao;
+using Blog.Models.Blog.Postagem.Revisao.Comentario;
+using System;
 using System.Collections.Generic;
 
 namespace Blog.ViewModels.Admin
@@ -7,6 +9,7 @@ namespace Blog.ViewModels.Admin
     {
 
         public ICollection<PostagemAdminPostagens> Postagens { get; set; }
+
         public AdminPostagensListarViewModel()
         {
             TituloPagina = "Postagens - Administrador";
@@ -19,6 +22,7 @@ namespace Blog.ViewModels.Admin
         public string Texto { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
-        public DateTime DataInicio { get; set; }
+        public List<String> Comentarios { get; set; }
+        
     }
 }

@@ -15,27 +15,27 @@
         <a class="btn btn-primary mb-3" href="/admin/autores/criar">Criar novo autor</a>
 
         <table class="table table-bordered">
-            <thead>
-                <tr>
+            @foreach (PostagemAdminPostagens postagem in @Model.Postagens)
+            {
+                <thead>
 
-                    <th>Titulo</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (PostagemAdminPostagens postagem in @Model.Postagens)
-                {
                     <tr>
-                        
-                        <td>@postagem.Titulo</td>
 
-                        <td>
-                            <a class="btn btn-default btn-xs" href="/admin/etiquetas/editar/@postagem.Id">Editar</a>
-                            <a class="btn btn-danger btn-xs" href="/admin/etiquetas/remover/@postagem.Id">Remover</a>
-                        </td>
+                        <th>@postagem.Titulo</th>
+
                     </tr>
-                }
-            </tbody>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>@postagem.Texto</td>
+                    </tr>
+
+                </tbody>
+
+
+
+            }
         </table>
 
     </div>
