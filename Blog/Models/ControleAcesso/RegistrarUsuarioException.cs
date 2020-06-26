@@ -12,5 +12,17 @@ namespace Blog.Models.ControleDeAcesso
         {
             Erros = erros;
         }
+
+        public RegistrarUsuarioException()
+        {
+        }
+
+        public RegistrarUsuarioException(string message) : base(message)
+        {
+        }
+
+        public RegistrarUsuarioException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

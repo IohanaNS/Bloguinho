@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Blog.Models.ControleDeAcesso;
-using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Models.ControleDeAcesso
 {
-    public class ControleDeAcessoService
+    public class ControleAcessoService
     {
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
 
-        public ControleDeAcessoService(
+        public ControleAcessoService(
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager
         )
@@ -22,8 +23,9 @@ namespace Blog.Models.ControleDeAcesso
         public async Task AutenticarUsuario(string usuario, string senha)
         {
             var result = await _signInManager.PasswordSignInAsync(usuario, senha, false, false);
-            
-            if (!result.Succeeded) {
+
+            if (!result.Succeeded)
+            {
                 throw new Exception("Usuário ou senha inválidos");
             }
         }
@@ -32,7 +34,7 @@ namespace Blog.Models.ControleDeAcesso
         {
             _signInManager.SignOutAsync();
         }
-        
+
         public async Task RegistrarUsuario(string email, string apelido, string senha)
         {
             var user = new Usuario
@@ -44,7 +46,8 @@ namespace Blog.Models.ControleDeAcesso
 
             var result = await _userManager.CreateAsync(user, senha);
 
-            if (!result.Succeeded) {
+            if (!result.Succeeded)
+            {
                 throw new RegistrarUsuarioException(result.Errors);
             }
         }

@@ -42,7 +42,7 @@ namespace Blog
             });
 
             // Adicionar o serviço do controle de acesso
-            services.AddTransient<ControleDeAcessoService>();
+            services.AddTransient<ControleAcessoService>();
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();

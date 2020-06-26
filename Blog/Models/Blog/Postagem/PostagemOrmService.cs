@@ -102,5 +102,12 @@ namespace Blog.Models.Blog.Postagem
 
             return true;
         }
+
+        internal PostagemEntity ObterPostagemPorId(int id)
+        {
+            PostagemEntity p = _databaseContext.Postagens.Find(id);
+
+            return p;
+        }
     }
 }

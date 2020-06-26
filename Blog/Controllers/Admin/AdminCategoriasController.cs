@@ -35,6 +35,11 @@ namespace Blog.Controllers.Admin
         public IActionResult Listar()
         {
             AdminCategoriasListarViewModel model = new AdminCategoriasListarViewModel();
+           
+
+            // Obter as cat
+            var lista = _categoriaOrmService.ObterCategorias();
+            
 
             return View(model);
         }
@@ -48,9 +53,14 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Criar()
         {
-            ViewBag.erro = TempData["erro-msg"];
+            AdminCategoriasCriarViewModel model = new AdminCategoriasCriarViewModel();
 
-            return View();
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+           
+
+            return View(model);
         }
 
         [HttpPost]
@@ -74,10 +84,26 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminCategoriasEditarViewModel model = new AdminCategoriasEditarViewModel();
 
-            return View();
+            // Obter cat a editar
+            var cat = _categoriaOrmService.ObterCategoriaPorId(id);
+            if (cat == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+           
+
+            // Alimentar o model com os dados da cat a ser editada
+            model.IdCategoria = cat.Id;
+            model.Nome = cat.Nome;
+
+
+            return View(model);
         }
 
         [HttpPost]
@@ -102,10 +128,23 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminCategoriasEditarViewModel model = new AdminCategoriasEditarViewModel();
 
-            return View();
+            // Obter cat a editar
+            var cat = _categoriaOrmService.ObterCategoriaPorId(id);
+            if (cat == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Alimentar o model com os dados da cat a ser editada
+            model.IdCategoria = cat.Id;
+            model.Nome = cat.Nome; ;
+
+            return View(model);
         }
 
         [HttpPost]

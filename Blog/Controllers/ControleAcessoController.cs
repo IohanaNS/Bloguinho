@@ -8,12 +8,12 @@ using Blog.RequestModels.ControleDeAcesso;
 
 namespace Blog.Controllers
 {
-    public class ControleDeAcessoController : Controller
+    public class ControleAcessoController : Controller
     {
-        private readonly ControleDeAcessoService _controleDeAcessoService;
+        private readonly ControleAcessoService _controleDeAcessoService;
 
-        public ControleDeAcessoController(
-            ControleDeAcessoService controleDeAcessoService
+        public ControleAcessoController(
+            ControleAcessoService controleDeAcessoService
         )
         {
             _controleDeAcessoService = controleDeAcessoService;
