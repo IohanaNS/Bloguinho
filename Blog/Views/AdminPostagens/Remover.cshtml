@@ -20,7 +20,7 @@
             </div>
         }
 
-        <form action="/admin/etiquetas/remover" method="post">
+        <form action="/admin/postagens/remover" method="post">
             <div class="form-group mb-3">
                 <p class="text-center">
                     Deseja mesmo remover a postagem?<strong>@Model.TituloPostagem</strong>?
@@ -30,7 +30,7 @@
                 <input type="hidden" name="Id" value="@Model.IdPostagem">
                 <button type="submit" class="btn btn-primary btn-block">Confirmar</button>
                 <p class="text-center mt-3">
-                    <a href="/admin/etiquetas">Cancelar</a>
+                    <a href="/admin/postagens">Cancelar</a>
                 </p>
             </div>
         </form>

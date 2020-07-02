@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="card-body">
-        <a class="btn btn-primary mb-3" href="/admin/categorias/criar">Criar novo autor</a>
+        <a class="btn btn-primary mb-3" href="/admin/categorias/criar">Criar nova categoria</a>
 
         <table class="table table-bordered">
             <thead>
@@ -20,7 +20,7 @@
                     <th>Id</th>
                     <th>Nome</th>
                  
-                  >
+                  
                 </tr>
             </thead>
             <tbody>
@@ -31,8 +31,8 @@
                         <td>@categoria.NomeCategoria</td>
 
                         <td>
-                            <a class="btn btn-default btn-xs" href="/admin/etiquetas/editar/@categoria.IdCategoria">Editar</a>
-                            <a class="btn btn-danger btn-xs" href="/admin/etiquetas/remover/@categoria.IdCategoria">Remover</a>
+                            <a class="btn btn-default btn-xs" href="/admin/categorias/editar/@categoria.IdCategoria">Editar</a>
+                            <a class="btn btn-danger btn-xs" href="/admin/categorias/remover/@categoria.IdCategoria">Remover</a>
                         </td>
                     </tr>
                 }
