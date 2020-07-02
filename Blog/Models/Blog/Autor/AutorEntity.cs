@@ -15,7 +15,7 @@ namespace Blog.Models.Blog.Autor
         [Required]
         [MaxLength(120)]
 
-        public string Nome { get => Nome; set =>Nome = value; }
+        public string Nome { get;set; }
 
     }
 }

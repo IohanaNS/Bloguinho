@@ -12,9 +12,11 @@ using Blog.Models.Blog.Etiqueta;
 using Blog.ViewModels.Home;
 using Blog.Models.Blog.Postagem.Revisao;
 using Blog.Models.Blog.Autor;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

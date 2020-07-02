@@ -81,19 +81,17 @@
             <h4>Postagens Populares</h4>
         </div>
         <ul class="w3-ul w3-hoverable w3-white">
-
             @foreach (PostagemPopularHomeIndex postagemPopular in @Model.PostagensPopulares)
             {
                 <li class="w3-padding-16">
-                <li class="w3-padding-16">
-                    <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">	                   <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                    <span class="w3-large">Lorem</span><br>	                   <span class="w3-large">@postagemPopular.Titulo</span><br>
-                    <span>Sed mattis nunc</span>	                   <span>@postagemPopular.Categoria</span>
-                </li>	               </li>
+                    <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                    <span class="w3-large">@postagemPopular.Titulo</span><br>
+                    <span>@postagemPopular.Categoria</span>
+                </li>
 
             }
-</div>
-
+        </ul>
+    </div>
     <!-- Sobre Mim -->
     <div class="w3-card w3-margin w3-margin-top">
         <img src="~/media/iohana.jpg" style="width:100%">

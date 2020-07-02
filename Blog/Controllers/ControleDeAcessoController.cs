@@ -5,21 +5,26 @@ using Microsoft.AspNetCore.Mvc;
 using Blog.ViewModels.ControleDeAcesso;
 using Blog.Models.ControleDeAcesso;
 using Blog.RequestModels.ControleDeAcesso;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Controllers
 {
-    public class ControleAcessoController : Controller
-    {
-        private readonly ControleAcessoService _controleDeAcessoService;
+  //  [Authorize]
+    public class ControleDeAcessoController : Controller
 
-        public ControleAcessoController(
-            ControleAcessoService controleDeAcessoService
+    {
+       
+        private readonly ControleDeAcessoService _controleDeAcessoService;
+
+        public ControleDeAcessoController(
+            ControleDeAcessoService controleDeAcessoService
         )
         {
             _controleDeAcessoService = controleDeAcessoService;
         }
 
         [HttpGet]
+        
         public IActionResult Login([FromQuery] string returnUrl)
         {
             ControleDeAcessoLoginViewModel model = new ControleDeAcessoLoginViewModel();
@@ -89,7 +94,7 @@ namespace Blog.Controllers
             var email = request.Email;
             var apelido = request.Apelido;
             var senha = request.Senha;
-            var token = request.Token ?? "";
+          
 
             if (apelido == null)
             {
@@ -109,11 +114,7 @@ namespace Blog.Controllers
                 return RedirectToAction("Registrar");
             }
 
-            if (!token.Equals("BLOG-PWA-2020"))
-            {
-                TempData["erro-msg"] = "Token Inválido!";
-                return RedirectToAction("Registrar");
-            }
+           
 
             try
             {

@@ -42,7 +42,7 @@ namespace Blog
             });
 
             // Adicionar o serviço do controle de acesso
-            services.AddTransient<ControleAcessoService>();
+            services.AddTransient<ControleDeAcessoService>();
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
@@ -121,6 +121,12 @@ namespace Blog
                     pattern: "admin/postagens/{action}/{id?}",
                     defaults: new { controller = "AdminPostagens", action = "Listar" }
                 );
+                endpoints.MapControllerRoute(
+                    name: "admin.autores",
+                    pattern: "admin/autores/{action}/{id?}",
+                    defaults: new { controller = "AdminAutores", action = "Listar" }
+                );
+
             });
         }
     }

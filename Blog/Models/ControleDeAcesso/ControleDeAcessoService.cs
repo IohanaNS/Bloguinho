@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Blog.Models.ControleDeAcesso
 {
-    public class ControleAcessoService
+    public class ControleDeAcessoService
     {
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
 
-        public ControleAcessoService(
+        public ControleDeAcessoService(
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager
         )
