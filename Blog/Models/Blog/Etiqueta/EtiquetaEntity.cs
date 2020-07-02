@@ -25,6 +25,7 @@ namespace Blog.Models.Blog.Etiqueta
         public EtiquetaEntity()
         {
             PostagensEtiquetas = new List<PostagemEtiquetaEntity>();
+            Categoria = new CategoriaEntity();
         }
     }
 }
